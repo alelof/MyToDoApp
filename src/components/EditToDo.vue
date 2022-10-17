@@ -17,20 +17,17 @@ const { user } = storeToRefs(userStore)
 const route = useRoute()
 const id = ref(route.params.id);
 const title = ref(route.query.title);
+const newTitle = ref('');
 
-
-
-
-console.log("id",id.value, title)
 /********** como lo del user store */
 const taskStore = useTaskStore()
 const { tasks } = storeToRefs(taskStore)
 
 
 
-const modifyTask = async (id, title) => {
+const modifyTask = async (id, newTitle) => {
     try {
-        await taskStore.editTask(id,title);
+        await taskStore.editTask(id,newTitle);
         alert("sucesfully modified");
         router.push({ path: '/dashboard' });
     } catch (e) {
@@ -43,15 +40,17 @@ const modifyTask = async (id, title) => {
 
 <template>
     <h3>EDIT PAGE</h3>
-    <form @submit.prevent="modifyTask(id,title)">
+    <p>{{title}}</p>
+    <form @submit.prevent="modifyTask(id,newTitle)">
         <div>
             <label for="task">To do:</label>
-            <input id="title" type="text" v-model="title" />
+            <input id="title" type="text" v-model="newTitle" />
         </div>
         <div>
-            <button type="submit"> Update </button>
+            <button type="submit"> Update! </button>
         </div>
         </form>
+        <router-link to="/dashboard" tag="button">Cancel</router-link>
 
 </template>
 

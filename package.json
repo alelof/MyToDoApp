@@ -7,7 +7,9 @@
     "preview": "vite preview --port 4173"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.6",
     "@supabase/supabase-js": "^1.35.7",
+    "bootstrap": "^5.2.2",
     "pinia": "^2.0.21",
     "pinia-plugin-persist": "^0.0.93",
     "vue": "^3.2.38",

@@ -31,9 +31,9 @@
   
   <template>
     <section>
-      <h1>blabla header . I'm in app.vue</h1>
+      <h1>I'm in app.vue</h1>
       <div>
-      <router-view class="app-main" /> <!-- your routes will load inside of these tags -->    
+      <router-view  /> <!-- class="app-main" your routes will load inside of these tags -->    
     </div>
     </section>
   </template>
