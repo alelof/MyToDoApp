@@ -13,13 +13,12 @@
     await userStore.fetchUser(); // here we call fetch user
     if (!user.value) {
               // redirect them to logout if the user is not there
-      router.push({ path: '/auth' });
+      router.push({ path: '/auth' }); //antes /auth
       console.log("no estás logeado");
-      //await userStore.signUp("lf_ale@yahoo.com", "password");
       console.log(user.value);
     } else {
       // continue to dashboard
-      //router.push({ path: '/' });
+      router.push({ path: '/dashboard' });
       console.log("estás logeado");
       console.log(user.value);
     }
@@ -32,10 +31,10 @@
   
   <template>
     <section>
-      <h1>blahbla header</h1>
-    </section>
-    <section>
+      <h1>blabla header . I'm in app.vue</h1>
+      <div>
       <router-view class="app-main" /> <!-- your routes will load inside of these tags -->    
+    </div>
     </section>
   </template>
   

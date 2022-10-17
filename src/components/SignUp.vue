@@ -1,52 +1,36 @@
+<script setup>
+import { ref } from 'vue';
+import { supabase } from '../supabase';
+import { onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useRouter } from 'vue-router'
+import { useUserStore } from '../stores/user.js'
 
-  
-  <script>
-  import { ref } from "vue";
-  import { supabase } from "../supabase";
+const router = useRouter()
+const userStore = useUserStore()
+const { user } = storeToRefs(userStore)
 
-  import { onMounted } from 'vue'
-  import { storeToRefs } from 'pinia'
-  import { useRouter } from 'vue-router'
-  import { useUserStore } from '../stores/user.js'
-  
-  const router = useRouter()
-  const userStore = useUserStore()
-  const { user } = storeToRefs(userStore)
+const email = ref('');
+const password = ref('');
 
-  /*
-  export default {
-    setup() {
-      const email = ref("");
-      const password = ref("");
-  
-      const handleSignup = async () => {
-        try {
-          // Use the Supabase provided method to handle the signup
-          const { error } = await supabase.auth.signUp({
-            email: email.value,
-            password: password.value,
-          });
-          if (error) throw error;
-        } catch (error) {
-          alert(error.error_description || error.message);
-        }
-      };
-  
-      return {
-        email,
-        password,
-        handleSignup,
-      };
-    },
-  };
-*/
-  </script>
+console.log('email:', email.value)
+
+const handleSignUp = async () => {
+  console.log("sign UP - click en boton!!!!")
+  try {
+    await userStore.signUp(email.value, password.value);
+    alert("Thanks for registering. Check your mail and come back!");
+  } catch (e) {
+    console.log(e);
+    alert(e.message);
+  }
+};
+</script>
 
 <template>
   <div>
     <h2>Sign up for an account</h2>
-    <!-- <form @submit.prevent="handleSignup"> -->
-      <form>  
+    <form @submit.prevent="handleSignUp">
       <div>
         <label for="email">Email</label>
         <input id="email" type="email" v-model="email" />
