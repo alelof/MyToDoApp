@@ -1,7 +1,5 @@
 <script setup>
 import { ref } from 'vue';
-import { supabase } from '../supabase';
-import { onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../stores/user.js'
@@ -13,10 +11,7 @@ const { user } = storeToRefs(userStore)
 const email = ref('');
 const password = ref('');
 
-console.log('email:', email.value)
-
 const handleSignUp = async () => {
-  console.log("sign UP - click en boton!!!!")
   try {
     await userStore.signUp(email.value, password.value);
     alert("Thanks for registering. Check your mail and come back!");
@@ -28,20 +23,38 @@ const handleSignUp = async () => {
 </script>
 
 <template>
-  <div>
-    <h2>Sign up for an account</h2>
+    <main class="form-signin w-100 mx-auto">
+    <img class="mb-4" src="../assets/edit.png" alt="" width="72" height="57">
+    <h1 class="h3 mb-3 fw-normal">Create an account</h1>
     <form @submit.prevent="handleSignUp">
-      <div>
-        <label for="email">Email</label>
-        <input id="email" type="email" v-model="email" />
+      <div class="form-floating">
+        <input type="email" id="email" class="form-control" placeholder="name@example.com" v-model="email">
+        <label for="email">Email address</label>
       </div>
-      <div>
+      <div class="form-floating">
+        <input type="password" id="password" class="form-control" placeholder="Password" v-model="password" />
         <label for="password">Password</label>
-        <input id="password" type="password" v-model="password" />
       </div>
       <div>
-        <button type="submit">Sign up</button>
+        <button type="submit" class="w-100 mt-3 btn btn-lg btn-primary">Create account</button>
       </div>
     </form>
-  </div>
+  </main>
 </template>
+
+<style scoped>
+.form-signin{
+  max-width: 330px;
+  padding: 15px;;
+}
+.form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+</style>

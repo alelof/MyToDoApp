@@ -1,5 +1,3 @@
-// /store/task.js
-
 import { defineStore } from "pinia";
 import { supabase } from "../supabase";
 
@@ -33,11 +31,10 @@ export const useTaskStore = defineStore("tasks", {
         alert(error.message)
       }
     },
-    async editTask(id, title) {  //pendiente de probar
+    
+    async editTask(id, title) {
       try {
-        console.log("estoy en editTask",  id,title)
-
-    const { data, error } = await supabase
+        const { data, error } = await supabase
           .from('tasks')
           .update({ title: title })
           .eq('id', id)
@@ -46,20 +43,31 @@ export const useTaskStore = defineStore("tasks", {
         alert(error.message)
       }
     },
-    async deleteTask(id) {  //pendiente de probar
+
+    async toogleCompleted(id, isComplete) {
       try {
-
+        const { data, error } = await supabase
+          .from('tasks')
+          .update({ is_complete: isComplete })
+          .eq('id', id)
+        if (error) throw error
+      } catch (error) {
+        alert(error.message)
+      }
+    },
+    async deleteTask(id) {
+      try {
         const { error } = await supabase
-        .from('tasks')
-        .delete()
-        .eq('id', id)
-
+          .from('tasks')
+          .delete()
+          .eq('id', id)
         if (error) throw error
       } catch (error) {
         alert(error.message)
       }
     },
   },
+
   persist: {
     enabled: true,
     strategies: [

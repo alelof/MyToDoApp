@@ -1,56 +1,55 @@
 <script setup>
 import { ref } from 'vue';
-import { supabase } from '../supabase';
-import { onMounted } from 'vue'
-import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
 import { useRouter } from 'vue-router'
-import { useUserStore } from '../stores/user.js'
 import { useTaskStore } from '../stores/tasks.js'
 
-let open = ref(false)
-
 const router = useRouter()
-const userStore = useUserStore()
-const { user } = storeToRefs(userStore)
 
 const route = useRoute()
-const id = ref(route.params.id);
-const title = ref(route.query.title);
-const newTitle = ref('');
+const id = ref(route.params.id)
+const title = ref(route.query.title)
+const newTitle = ref('')
 
-/********** como lo del user store */
 const taskStore = useTaskStore()
-const { tasks } = storeToRefs(taskStore)
-
-
 
 const modifyTask = async (id, newTitle) => {
     try {
-        await taskStore.editTask(id,newTitle);
+        await taskStore.editTask(id, newTitle);
         alert("sucesfully modified");
         router.push({ path: '/dashboard' });
     } catch (e) {
         console.log(e);
     }
 }
-
-
 </script>
 
 <template>
-    <h3>EDIT PAGE</h3>
-    <p>{{title}}</p>
-    <form @submit.prevent="modifyTask(id,newTitle)">
-        <div>
-            <label for="task">To do:</label>
-            <input id="title" type="text" v-model="newTitle" />
+    <main class="w-100 h-100 d-flex flex-column justify-content-center">
+        <div class="form-signin w-100 mx-auto">
+            <div class="text-muted mt-2">Current content</div>
+            <div class="card">
+                <div class="card-body">
+                    {{title}}
+                </div>
+            </div>
+            <form class="mt-4" @submit.prevent="modifyTask(id,newTitle)">
+                <div>
+                    <label class="text-muted" for="task">New content</label>
+                    <input id="title" type="text" class="form-control" placeholder="new task" v-model="newTitle" />
+                </div>
+                <div class="d-flex justify-content-between align-items-baseline">
+                    <router-link to="/dashboard" tag="button">&lt; Go back </router-link>
+                    <button class="mt-3" type="submit"> Edit task </button>
+                </div>
+            </form>
         </div>
-        <div>
-            <button type="submit"> Update! </button>
-        </div>
-        </form>
-        <router-link to="/dashboard" tag="button">Cancel</router-link>
-
+    </main>
 </template>
 
+<style scoped>
+.form-signin{
+  max-width: 330px;
+  padding: 15px;;
+}
+</style>

@@ -11,20 +11,14 @@ const { user } = storeToRefs(userStore)
 const email = ref('');
 const password = ref('');
 
-console.log('email:', email.value)
-
 const handleSignIn = async () => {
-  console.log("sign In -  click en boton!!!!")
   try {
-    console.log('email: ', email)
-    console.log('pass: ', password)
     await userStore.signIn(email.value, password.value);
     if (!user.value) {
-      // how to reset the fieldss?!?!?!
-      router.push({ path: '/' }); //antes /auth
-
+      email.value = '';
+      password.value = '';
+      router.push({ path: '/auth' });
     } else {
-      // continue to dashboard
       router.push({ path: '/dashboard' });
     }
   } catch (e) {
@@ -35,20 +29,41 @@ const handleSignIn = async () => {
 </script>
 
 <template>
-  <div>
-    <h2>Sign in to your account</h2>
+  <main class="form-signin w-100 mx-auto">
+    <img class="mb-4" src="../assets/edit.png" alt="" width="72" height="57">
+    <h1 class="h3 mb-3 fw-normal">Please log in</h1>
     <form @submit.prevent="handleSignIn">
-      <div>
-        <label for="email">Email</label>
-        <input id="email" type="email" v-model="email" />
+      <div class="form-floating">
+        <input type="email" id="email" class="form-control" placeholder="name@example.com" v-model="email">
+        <label for="email">Email address</label>
       </div>
-      <div>
+      <div class="form-floating">
+        <input type="password" id="password" class="form-control" placeholder="Password" v-model="password" />
         <label for="password">Password</label>
-        <input id="password" type="password" v-model="password" />
       </div>
       <div>
-        <button type="submit">Log in</button>
+        <button type="submit" class="w-100 mt-3 btn btn-lg btn-primary">Log in</button>
       </div>
     </form>
-  </div>
+  </main>
 </template>
+
+<style>
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  ;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+</style>

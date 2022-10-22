@@ -10,26 +10,27 @@ const router = useRouter()
 const userStore = useUserStore()
 const { user } = storeToRefs(userStore)
 
-const isSignUp = ref(false);
+const isSignUp = ref(false)
 
 </script>
 
 <template>
-    <div>
-        <h1>auth web page</h1>
+    <main class="w-100 text-center h-100 d-flex flex-column justify-content-center">
         <sign-up v-if="isSignUp" />
         <sign-in v-else />
-        <button @click="isSignUp = !isSignUp">
+        <a class="link-primary" @click="isSignUp = !isSignUp">
             {{
             isSignUp
             ? "Already have an account? Log In"
             : "Don't have an account yet? Sign Up"
             }}
-        </button>
-    </div>
+        </a>
+    </main>
 
+  
 </template>
 
-<style>
+<style scoped>
+
 
 </style>

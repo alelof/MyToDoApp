@@ -7,13 +7,10 @@ import { useRouter } from 'vue-router'
 import { useUserStore } from '../stores/user.js'
 import { useTaskStore } from '../stores/tasks.js'
 
-let open = ref(false)
-
 const router = useRouter()
 const userStore = useUserStore()
 const { user } = storeToRefs(userStore)
 
-/********** como lo del user store */
 const taskStore = useTaskStore()
 const { tasks } = storeToRefs(taskStore)
 
@@ -21,7 +18,7 @@ const title = ref('');
 
 const createNew = async () => {
 
-  const newTask = {
+const newTask = {
     user_id: user.value.id,
     title: title,
     is_complete: false,
@@ -30,7 +27,6 @@ const createNew = async () => {
 
   try {
     await taskStore.createTask(newTask);
-    console.log("Llamando a createtask, pasando el objeto ", newTask);
     await taskStore.fetchTasks();
     title.value = '';
   } catch (e) {
@@ -42,26 +38,17 @@ const createNew = async () => {
 </script>
 
 <template>
-  <div>
-        <h2>Create Task</h2>
-        <form @submit.prevent="createNew">
-          <div>
-            <label for="task">Add a to do: </label>
-            <input id="title" type="textarea" v-model="title" placeholder="E.g. Feed the cat" />
-            <button type="submit" > Add </button>
-          </div>
-        </form>
-      </div>
+  <div class="mt-3 mb-4">
+    <div class="d-flex flex-wrap justify-content-start align-items-baseline">
+      <form @submit.prevent="createNew">
+        <label class="text me-3" for="task">Create new task </label>
+        <input id="title" type="textarea" class="form-control w-auto d-inline" v-model="title" placeholder="E.g. Feed the cat" />
+        <button type="submit" class="ms-3 btn btn-outline-primary"> Create </button>
+      </form>
+    </div>
+  </div>
 </template>
 
 <style scoped>
-.modal {
-  position: fixed;
-  z-index: 999;
-  top: 20%;
-  left: 50%;
-  width: 300px;
-  margin-left: -150px;
-  background-color: azure;
-}
+
 </style>

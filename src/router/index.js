@@ -31,14 +31,3 @@ const router = createRouter({
 })
 
 export default router
-
-
-/*
-      children: [
-        {
-          path: '/:id', 
-          name: 'edit',
-          component: () => import('../components/EditToDo.vue')
-        }
-      ]
-       */
