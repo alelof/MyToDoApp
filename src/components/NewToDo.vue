@@ -18,7 +18,7 @@ const title = ref('');
 
 const createNew = async () => {
 
-const newTask = {
+  const newTask = {
     user_id: user.value.id,
     title: title,
     is_complete: false,
@@ -38,17 +38,31 @@ const newTask = {
 </script>
 
 <template>
-  <div class="mt-3 mb-4">
-    <div class="d-flex flex-wrap justify-content-start align-items-baseline">
-      <form @submit.prevent="createNew">
-        <label class="text me-3" for="task">Create new task </label>
-        <input id="title" type="textarea" class="form-control w-auto d-inline" v-model="title" placeholder="E.g. Feed the cat" />
-        <button type="submit" class="ms-3 btn btn-outline-primary"> Create </button>
-      </form>
+  <form class="mt-3 mb-4" @submit.prevent="createNew">
+    <div class="d-flex flex-row flex-wrap justify-content-start align-items-baseline">
+      <span class="fs-6 text me-3" for="task">New task </span>
+      <input id="title" type="textarea" class="form-control w-auto" v-model="title" placeholder="E.g. Feed the cat" />
+      <button id="myCreateBtn" type="submit" class="ms-3 btn btn-warning"> Create </button>
     </div>
-  </div>
+  </form>
 </template>
 
 <style scoped>
+#myCreateBtn {
+  background-color: #e9c46a;
+  border-color: #e9c46a;
+}
 
+#myCreateBtn:hover {
+  background-color: #dfa926;
+}
 </style>
+
+
+
+}
+
+.buttonClass:hover {
+  
+}
+              

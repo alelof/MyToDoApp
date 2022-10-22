@@ -28,7 +28,7 @@ const modifyTask = async (id, newTitle) => {
     <main class="w-100 h-100 d-flex flex-column justify-content-center">
         <div class="form-signin w-100 mx-auto">
             <div class="text-muted mt-2">Current content</div>
-            <div class="card">
+            <div class="text fs-6 card bg">
                 <div class="card-body">
                     {{title}}
                 </div>
@@ -36,11 +36,11 @@ const modifyTask = async (id, newTitle) => {
             <form class="mt-4" @submit.prevent="modifyTask(id,newTitle)">
                 <div>
                     <label class="text-muted" for="task">New content</label>
-                    <input id="title" type="text" class="form-control" placeholder="new task" v-model="newTitle" />
+                    <input id="title" type="text" class="form-control" placeholder="E.g. Feed the cat" v-model="newTitle" />
                 </div>
                 <div class="d-flex justify-content-between align-items-baseline">
                     <router-link to="/dashboard" tag="button">&lt; Go back </router-link>
-                    <button class="mt-3" type="submit"> Edit task </button>
+                    <button id="myEditBtn" class="mt-3 btn btn-warning" type="submit"> Edit task </button>
                 </div>
             </form>
         </div>
@@ -48,8 +48,21 @@ const modifyTask = async (id, newTitle) => {
 </template>
 
 <style scoped>
-.form-signin{
-  max-width: 330px;
-  padding: 15px;;
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+}
+
+.bg{
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+#myEditBtn {
+    background-color: #e9c46a;
+    border-color: #e9c46a;
+}
+
+#myEditBtn:hover {
+    background-color: #dfa926;
 }
 </style>

@@ -18,10 +18,10 @@ const { tasks } = storeToRefs(taskStore)
 
 defineProps({ task: Object })
 
-const completed = async (taskId,isComplete) => {
+const completed = async (taskId, isComplete) => {
     try {
         isComplete = !isComplete;
-        await taskStore.toogleCompleted(taskId,isComplete);
+        await taskStore.toogleCompleted(taskId, isComplete);
         await taskStore.fetchTasks();
     } catch (e) {
         console.log(e);
@@ -38,7 +38,28 @@ const remove = async (taskId) => {
 }
 </script>
 <template>
-    <div class="col">
+    <div class="col" v-if="task.is_complete == true">
+        <div class="card h-100">
+            <div class="d-inline-flex p-2 justify-content-end blocked">
+                <img class="icon" src="../assets/checked.png" @click="completed(task.id,task.is_complete)"
+                    title="Task completed">
+                <router-link :to="{ name: 'edit', params: { id: task.id }, query: { title:task.title} }"
+                    class="text-decoration-none text-reset">
+                    <img class="icon" src="../assets/edit.png" title="Edit task">
+                </router-link>
+                <img class="icon" @click="remove(task.id)" src="../assets/bin.png" title="Delete task">
+            </div>
+            <div class="card-body blocked">
+                <p class="card-text">{{task.title}}</p>
+            </div>   
+            <div class="card-footer">
+                <small class="text-muted">Created on: {{ task.inserted_at.substr(0,10) }}</small>
+                <!-- | moment('MMMM Do YYYY') -->
+                <!--<small class="text-muted">Created on: {{ task.inserted_at.substr(0,10) }}</small>  -->
+            </div>
+        </div> <!-- si blocked-->
+    </div>
+    <div class="col" v-else>
         <div class="card h-100">
             <div class="d-inline-flex p-2 justify-content-end">
                 <img class="icon" src="../assets/checked.png" @click="completed(task.id,task.is_complete)"
@@ -53,20 +74,35 @@ const remove = async (taskId) => {
             </div>
             <div class="card-body">
                 <p class="card-text">{{task.title}}</p>
-            </div>
+            </div>   
             <div class="card-footer">
-                <small class="text-muted">Created on: {{ task.inserted_at.substr(0,10) }}</small> <!-- | moment('MMMM Do YYYY') -->
+                <small class="text-muted">Created on: {{ task.inserted_at.substr(0,10) }}</small>
+                <!-- | moment('MMMM Do YYYY') -->
                 <!--<small class="text-muted">Created on: {{ task.inserted_at.substr(0,10) }}</small>  -->
             </div>
-        </div>
+        </div> <!-- si blocked-->
     </div>
 </template>
 
 <style scoped>
 .icon {
-    width: 20px;
-    height: 20px;
-    margin-left: 10px;
+    width: 24px;
+    height: 24px;
+    margin-left: 5px;
+    margin-right: 5px;
     cursor: pointer;
+    padding: 1px;
+    border-radius: 3px;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.icon:hover {
+    background-color: #e9c46a;
+
+}
+
+.blocked{
+    background-color: rgba(0, 0, 0, 0.03);
+    color: rgba(0, 0, 0, 0.50) 
 }
 </style>

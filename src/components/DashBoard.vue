@@ -28,7 +28,7 @@ onMounted(async () => {
   </section>
 
   <section>
-    <h4>My tasks </h4>
+    <h4 class="mb-3">My tasks </h4>
     <div class="row row-cols-1 row-cols-md-4 g-4 mb-5">
       <Card v-for="(task, index) in taskList" :index="index" :task="task" />
     </div>
@@ -44,3 +44,6 @@ section {
   margin: auto;
 }
 </style>
+
+
+color para el boton:  289F91

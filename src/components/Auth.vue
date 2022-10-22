@@ -26,8 +26,6 @@ const isSignUp = ref(false)
             }}
         </a>
     </main>
-
-  
 </template>
 
 <style scoped>
