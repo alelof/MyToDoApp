@@ -1,20 +1,43 @@
 <script setup>
 import { ref } from 'vue';
+import { reactive } from 'vue'
 import { supabase } from '../supabase';
 import { onMounted } from 'vue'
+import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../stores/user.js'
 import { useTaskStore } from '../stores/tasks.js'
+import ModalWait from './ModalWait.vue';
 
 const router = useRouter()
 const userStore = useUserStore()
 const { user } = storeToRefs(userStore)
 
 const taskStore = useTaskStore()
-const { tasks } = storeToRefs(taskStore)
+const { tasks, errors } = storeToRefs(taskStore)
 
 const title = ref('');
+
+let errorMsg = reactive(errors);
+let isError = ref(false)
+
+onMounted(async () => {
+  errorMsg.value = null;
+});
+
+let loading = ref(false);
+const triggerModal = computed({
+    set: (value) => {
+        loading.value = value
+  } 
+})
+
+const showError = computed({
+    set: (value) => {
+    isError.value = value
+  } 
+})
 
 const createNew = async () => {
 
@@ -26,26 +49,39 @@ const createNew = async () => {
   }
 
   try {
+    triggerModal.value = true 
     await taskStore.createTask(newTask);
     await taskStore.fetchTasks();
+    triggerModal.value = false
     title.value = '';
+    if(errorMsg.value != null){
+      showError.value = true
+    }
   } catch (e) {
     console.log(e);
-    alert(e.message);
   }
 }
-
 </script>
 
 <template>
   <form class="mt-3 mb-4" @submit.prevent="createNew">
     <div class="d-flex flex-row flex-wrap justify-content-start align-items-baseline">
-      <span class="fs-6 text me-3" for="task">New task </span>
-      <input id="title" type="textarea" class="form-control w-auto" v-model="title" placeholder="E.g. Feed the cat" />
-      <button id="myCreateBtn" type="submit" class="ms-3 btn btn-warning"> Create </button>
+      <span class="my-2 fs-6 text me-3" for="task">New task </span>
+      <input id="title" type="textarea" class="my-2 me-3 form-control w-auto" v-model="title"
+        placeholder="E.g. Feed the cat" />
+      <button id="myCreateBtn" type="submit" class="my-2 btn btn-warning"> Create </button>
     </div>
   </form>
+
+  <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="isError">
+    <strong> {{ errorMsg }} </strong> Task should be at least 4 characters long.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="isError = !isError"></button>
+  </div>
+  <ModalWait v-if="loading"></ModalWait>
 </template>
+
+
+
 
 <style scoped>
 #myCreateBtn {
@@ -59,10 +95,3 @@ const createNew = async () => {
 </style>
 
 
-
-}
-
-.buttonClass:hover {
-  
-}
-              

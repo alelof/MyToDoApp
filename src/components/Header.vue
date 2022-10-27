@@ -20,7 +20,8 @@ const letMeOut = async () => {
 <template>
   <div id="myBgColor" class="px-3 py-2 text-white">
     <div class="container d-flex align-items-center just justify-content-between justify-content-lg-start">
-      <a href="/dashboard" class="align-items-center my-lg-0 me-lg-auto text-white">LOGO
+      <a href="/dashboard" class="align-items-center my-lg-0 me-lg-auto text-white">
+        <img src="../assets/logoHeader.png" alt="">
       </a>
       <button type="button" id="signOutBtn" class="btn btn-light me-2" @click.prevent="letMeOut">Sign out</button>
     </div>

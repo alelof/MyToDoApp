@@ -4,6 +4,7 @@ import { supabase } from "../supabase";
 export const useTaskStore = defineStore("tasks", {
   state: () => ({
     tasks: null,
+    errors: null,
   }),
 
   actions: {
@@ -26,21 +27,25 @@ export const useTaskStore = defineStore("tasks", {
             inserted_at: newTask.inserted_at
           })
           .select()
+        this.errors = null;
         if (error) throw error
       } catch (error) {
-        alert(error.message)
+        this.errors = "Oops! Something went wrong, please try again. "
+        console.log(error.message)
       }
     },
-    
+
     async editTask(id, title) {
       try {
         const { data, error } = await supabase
           .from('tasks')
           .update({ title: title })
           .eq('id', id)
+        this.errors = null;
         if (error) throw error
       } catch (error) {
-        alert(error.message)
+        this.errors = "Oops! Something went wrong, please try again. "
+        console.log(error.message)
       }
     },
 
@@ -50,9 +55,11 @@ export const useTaskStore = defineStore("tasks", {
           .from('tasks')
           .update({ is_complete: isComplete })
           .eq('id', id)
+        this.errors = null;
         if (error) throw error
       } catch (error) {
-        alert(error.message)
+        this.errors = "Error completing task, please try again. "
+        console.log(error.message)
       }
     },
     async deleteTask(id) {
@@ -61,9 +68,11 @@ export const useTaskStore = defineStore("tasks", {
           .from('tasks')
           .delete()
           .eq('id', id)
+        this.errors = null;
         if (error) throw error
       } catch (error) {
-        alert(error.message)
+        this.errors = "Error deleting task, please try again. "
+        console.log(error.message)
       }
     },
   },
@@ -73,6 +82,11 @@ export const useTaskStore = defineStore("tasks", {
     strategies: [
       {
         key: "tasks",
+        storage: localStorage,
+      },
+
+      {
+        key: "errors",
         storage: localStorage,
       },
     ],

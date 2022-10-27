@@ -18,7 +18,7 @@ const isSignUp = ref(false)
     <main class="w-100 text-center h-100 d-flex flex-column justify-content-center">
         <sign-up v-if="isSignUp" />
         <sign-in v-else />
-        <a class="link-primary" @click="isSignUp = !isSignUp">
+        <a id="msg" class="link-primary" @click="isSignUp = !isSignUp">
             {{
             isSignUp
             ? "Already have an account? Log In"
@@ -29,6 +29,8 @@ const isSignUp = ref(false)
 </template>
 
 <style scoped>
-
+#msg{
+    margin-bottom: 5rem;
+}
 
 </style>

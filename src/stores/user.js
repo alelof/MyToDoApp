@@ -4,6 +4,7 @@ import { supabase } from "../supabase";
 export const useUserStore = defineStore("user", {
   state: () => ({
     user: null,
+    errors: null,
   }),
 
   actions: {
@@ -16,12 +17,18 @@ export const useUserStore = defineStore("user", {
     },
 
     async signUp(email, password) {
-      const { user, error } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-      });
-      if (error) throw error;
-      if (user) this.user = user;
+      try {
+        const { user, error } = await supabase.auth.signUp({
+          email: email,
+          password: password,
+        });
+        if (error) throw error;
+        if (user) this.user = user;
+      }
+      catch (error){
+        this.errors = error;
+        console.log("mi variiable error", this.errors.message);
+      }
     },
 
     async signIn(email, password) {
@@ -34,7 +41,8 @@ export const useUserStore = defineStore("user", {
         if (user) this.user = user;
       }
       catch (error) {
-        alert(error.error_description || error.message);
+        this.errors = error;
+        console.log("mi variiable error", this.errors.message);
       }
     },
 
@@ -43,8 +51,10 @@ export const useUserStore = defineStore("user", {
         const { error } = await supabase.auth.signOut();
         if (error) throw error;
         this.user = null;
+        this.errors = null;
       } catch (error) {
-        alert(error.error_description || error.message);
+        this.errors = error;
+        console.log("mi variiable error", this.errors.message);
       }
     },
   },
