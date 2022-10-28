@@ -23,7 +23,7 @@ export const useTaskStore = defineStore("tasks", {
       const { data: tasks } = await supabase
         .from('tasks')
         .select('*')
-        .order('id');
+        .order('id', {ascending:false});
       this.tasks = tasks;
     },
 

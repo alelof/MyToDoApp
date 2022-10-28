@@ -29,7 +29,7 @@ onMounted(async () => {
 
   <section>
     <h4 class="mb-3">My tasks </h4>
-    <div class="row row-cols-1 row-cols-md-4 g-4 mb-5">
+    <div id="cardContainer" class="row row-cols-1 row-cols-md-4 g-4">
       <Card v-for="(task, index) in taskList" :index="index" :task="task" />
     </div>
   </section>
@@ -46,5 +46,15 @@ section {
 svg {
   width: 20px;
   height: 20px;
+}
+
+#cardContainer {
+  margin-bottom: 3rem;
+}
+
+@media only screen and (max-width: 392px) {
+  #cardContainer {
+    margin-bottom: 4rem;
+  }
 }
 </style>
