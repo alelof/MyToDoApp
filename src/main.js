@@ -7,7 +7,6 @@ import router from './router'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.js'
 import './assets/main.css'
-import moment from 'moment'
 
 const app = createApp(App)
 
@@ -16,7 +15,5 @@ pinia.use(piniaPersist)
 
 app.use(pinia)
 app.use(router)
-
-//app.use(moment)
 
 app.mount('#app')

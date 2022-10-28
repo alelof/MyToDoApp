@@ -1,6 +1,6 @@
 <script setup>
-import { ref } from 'vue';
-import { reactive } from 'vue';
+import { ref } from 'vue'
+import { reactive } from 'vue'
 import { onMounted } from 'vue'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
@@ -8,21 +8,23 @@ import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useTaskStore } from '../stores/tasks.js'
 
+//For router link
 const router = useRouter()
 
+// Data from task
 const route = useRoute()
 const id = ref(route.params.id)
 const title = ref(route.query.title)
 const newTitle = ref('')
 
+//Displaying errors in banner
 const taskStore = useTaskStore()
-
 const { errors } = storeToRefs(taskStore)
 let errorMsg = reactive(errors)
 let isError = ref(false)
 
 onMounted(async () => {
-    errorMsg.value = null;
+    errorMsg.value = null
 });
 
 const showError = computed({
@@ -34,13 +36,15 @@ const showError = computed({
 const modifyTask = async (id, newTitle) => {
     try {
         if (newTitle) {
-            await taskStore.editTask(id, newTitle);
-            newTitle = '';
+            await taskStore.editTask(id, newTitle)
+            newTitle = ''
             if (errorMsg.value != null) {
+                //Display error
                 showError.value = true
             }
-            else { 
-                router.push({ path: '/dashboard' });
+            else {
+                //Redirect to dashboard after successful edit
+                router.push({ path: '/dashboard' })
             }
         }
         else {
@@ -48,7 +52,7 @@ const modifyTask = async (id, newTitle) => {
             showError.value = true
         }
     } catch (e) {
-        console.log(e);
+        console.log(e)
     }
 }
 </script>
@@ -74,6 +78,7 @@ const modifyTask = async (id, newTitle) => {
                 </div>
             </form>
 
+            <!-- Error banner-->
             <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert" v-if="isError">
                 <strong> {{ errorMsg }} </strong> Task should be at least 4 characters long.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"

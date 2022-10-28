@@ -9,10 +9,10 @@ const { user } = storeToRefs(userStore)
 
 const letMeOut = async () => {
   try {
-    await userStore.signOut();
-    await router.push("/auth");
+    await userStore.signOut()
+    await router.push("/auth")
   } catch (e) {
-    console.log(e);
+    console.log(e)
   }
 }
 </script>
@@ -29,23 +29,17 @@ const letMeOut = async () => {
 
   <div class="px-3 py-2 border-bottom ">
     <div class="container d-flex flex-wrap justify-content-center">
-      <div class="lead">Hi <span class="font-weight-bold">{{user.email}} </span>, welcome to your dashboard</div>
+      <div class="lead">Hi <span class="font-weight-bold">{{ user.email }} </span>, welcome to your dashboard</div>
     </div>
   </div>
 </template>
 
 <style scoped>
-#myBgColor{
-  background-color: #1C2541; 
+#myBgColor {
+  background-color: #1C2541;
 }
 
-#signOutBtn{
-  /*border-color: #2A9D8F;
-  background-color: #2A9D8F; */
+#signOutBtn {
   font-size: 0.8rem;
-}
-
-#signOutBtn:hover {
-  /*background: linear-gradient(rgba(233, 196, 106, 1), rgba(255, 231, 179, 1));*/
 }
 </style>

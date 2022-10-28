@@ -19,26 +19,17 @@
 .modalBg {
   display: inline;
   position: fixed;
-  /* Stay in place */
   z-index: 1;
-  /* Sit on top */
   left: 0;
   top: 0;
   width: 100%;
-  /* Full width */
   height: 100%;
-  /* Full height */
-  overflow: auto;
-  /* Enable scroll if needed */
   background-color: rgb(0, 0, 0);
-  /* Fallback color */
   background-color: rgba(14, 13, 17, 0.637);
-  /* Black w/ opacity */
 }
 
 #svg-spinner {
   -webkit-transition-property: -webkit-transform;
-  -webkit-transition-duration: 1.2s;
   -webkit-animation-name: rotate;
   -webkit-animation-iteration-count: infinite;
   -webkit-animation-timing-function: linear;
@@ -86,18 +77,7 @@
   }
 }
 
-
-/* Rest of page style
-
-#container{
-  width:90%;
-  max-width:700px;
-  margin:1em auto;
-  position:relative;
-}
-*/
 /* spinner positioning */
-
 #svg-spinner {
   position: absolute;
   top: 45%;

@@ -1,6 +1,16 @@
+/*
+ * This file contains all the actions related to the user and SUPABASE functions.
+ * Actions:
+ * - fetchUser. Verifies if the user is logged in
+ * - SignUp. Registers a new user in Supabase
+ * - SignIn. Logs an existing user in
+ * - SignOut. Ends user session 
+ */
+
 import { defineStore } from "pinia";
 import { supabase } from "../supabase";
 
+// Creating a store using Pinia
 export const useUserStore = defineStore("user", {
   state: () => ({
     user: null,
@@ -25,9 +35,8 @@ export const useUserStore = defineStore("user", {
         if (error) throw error;
         if (user) this.user = user;
       }
-      catch (error){
+      catch (error) {
         this.errors = error;
-        console.log("mi variiable error", this.errors.message);
       }
     },
 
@@ -42,7 +51,6 @@ export const useUserStore = defineStore("user", {
       }
       catch (error) {
         this.errors = error;
-        console.log("mi variiable error", this.errors.message);
       }
     },
 
@@ -54,7 +62,6 @@ export const useUserStore = defineStore("user", {
         this.errors = null;
       } catch (error) {
         this.errors = error;
-        console.log("mi variiable error", this.errors.message);
       }
     },
   },

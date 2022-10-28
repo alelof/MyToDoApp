@@ -1,6 +1,17 @@
+/*
+ * This file contains all the actions related to the tasks and SUPABASE functions.
+ * CRUD actions:
+ * - fetchTasks. Grabs the tasks of the logged user (Read)
+ * - createTask. Creates a new row in table task (Create)
+ * - editTask. Modifies existing task (Update)
+ * - toogleCompleted. Changes task state: completed or not completed (Update)
+ * - deleteTask. Deletes an existing task (Delete)
+ */
+
 import { defineStore } from "pinia";
 import { supabase } from "../supabase";
 
+// Creating a store using Pinia
 export const useTaskStore = defineStore("tasks", {
   state: () => ({
     tasks: null,
@@ -31,7 +42,6 @@ export const useTaskStore = defineStore("tasks", {
         if (error) throw error
       } catch (error) {
         this.errors = "Oops! Something went wrong, please try again. "
-        console.log(error.message)
       }
     },
 
@@ -45,7 +55,6 @@ export const useTaskStore = defineStore("tasks", {
         if (error) throw error
       } catch (error) {
         this.errors = "Oops! Something went wrong, please try again. "
-        console.log(error.message)
       }
     },
 
@@ -59,9 +68,9 @@ export const useTaskStore = defineStore("tasks", {
         if (error) throw error
       } catch (error) {
         this.errors = "Error completing task, please try again. "
-        console.log(error.message)
       }
     },
+
     async deleteTask(id) {
       try {
         const { error } = await supabase
@@ -72,7 +81,6 @@ export const useTaskStore = defineStore("tasks", {
         if (error) throw error
       } catch (error) {
         this.errors = "Error deleting task, please try again. "
-        console.log(error.message)
       }
     },
   },

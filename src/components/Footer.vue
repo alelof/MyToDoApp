@@ -1,7 +1,8 @@
 <template>
     <main id="myBgColor" class="py-2 fixed-bottom">
-        <div class="container">
-            <span class="text-light">Don't forget... la leche! © 2022 - The best ToDo app ever XD</span>
+        <div class="container d-flex flex-wrap justify-content-between">
+            <span class="text-light">© 2022 Don't forget... la leche!</span>
+            <span class="text-light">Best ToDo app ever! XD</span>
         </div>
     </main>
 </template>
@@ -10,5 +11,4 @@
 #myBgColor{
   background-color: #3A506B; 
 }
-
 </style>
