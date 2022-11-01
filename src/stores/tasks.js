@@ -23,13 +23,13 @@ export const useTaskStore = defineStore("tasks", {
       const { data: tasks } = await supabase
         .from('tasks')
         .select('*')
-        .order('id', {ascending:false});
+        .order('id', { ascending: false });
       this.tasks = tasks;
     },
 
     async createTask(newTask) {
       try {
-        const { data, error } = await supabase
+        const { error } = await supabase
           .from('tasks')
           .insert({
             user_id: newTask.user_id,
@@ -47,7 +47,7 @@ export const useTaskStore = defineStore("tasks", {
 
     async editTask(id, title) {
       try {
-        const { data, error } = await supabase
+        const { error } = await supabase
           .from('tasks')
           .update({ title: title })
           .eq('id', id)
@@ -60,7 +60,7 @@ export const useTaskStore = defineStore("tasks", {
 
     async toogleCompleted(id, isComplete) {
       try {
-        const { data, error } = await supabase
+        const { error } = await supabase
           .from('tasks')
           .update({ is_complete: isComplete })
           .eq('id', id)
@@ -90,11 +90,6 @@ export const useTaskStore = defineStore("tasks", {
     strategies: [
       {
         key: "tasks",
-        storage: localStorage,
-      },
-
-      {
-        key: "errors",
         storage: localStorage,
       },
     ],

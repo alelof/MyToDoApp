@@ -24,7 +24,7 @@ onMounted(async () => {
 <template>
   <Header></Header>
   <section>
-    <NewToDo />
+    <NewToDo></NewToDo>
   </section>
 
   <section>
@@ -41,11 +41,6 @@ section {
   padding: 5px;
   max-width: 90%;
   margin: auto;
-}
-
-svg {
-  width: 20px;
-  height: 20px;
 }
 
 #cardContainer {

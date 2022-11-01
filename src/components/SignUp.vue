@@ -26,8 +26,8 @@ const handleSignUp = async () => {
     else {
       showError.value = true
     }
-  } catch (editTask) {
-    alert(e.message)
+  } catch (e) {
+    console.log(e)
   }
 };
 </script>

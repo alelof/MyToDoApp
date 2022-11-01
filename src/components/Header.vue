@@ -1,16 +1,25 @@
 <script setup>
-import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia'
 import { useUserStore } from '../stores/user.js'
+import { useTaskStore } from '../stores/tasks.js'
+import { reactive } from 'vue'
 
 const router = useRouter()
 const userStore = useUserStore()
 const { user } = storeToRefs(userStore)
 
+const taskStore = useTaskStore()
+const { tasks, errors } = storeToRefs(taskStore)
+let errorsToNull = reactive(errors)
+let tasksToNull = reactive(tasks)
+
 const letMeOut = async () => {
   try {
     await userStore.signOut()
     await router.push("/auth")
+    errorsToNull.value = null //Deleting errors when sign signOut
+    tasksToNull.value = null
   } catch (e) {
     console.log(e)
   }

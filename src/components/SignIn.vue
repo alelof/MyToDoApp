@@ -35,7 +35,7 @@ const handleSignIn = async () => {
       router.push({ path: '/dashboard' })
     }
   } catch (e) {
-    alert(e)
+    console.log(e)
   }
 }
 </script>
@@ -58,7 +58,7 @@ const handleSignIn = async () => {
         <button type="submit" class="w-100 mt-3 btn btn-lg btn-primary myBtn">Log in</button>
       </div>
     </form>
-    
+
     <!-- Error banner-->
     <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert" v-if="isError">
       {{ errorMsg }}

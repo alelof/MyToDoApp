@@ -36,7 +36,7 @@ export const useUserStore = defineStore("user", {
         if (user) this.user = user;
       }
       catch (error) {
-        this.errors = error;
+        this.errors = error.message;
       }
     },
 
@@ -50,7 +50,7 @@ export const useUserStore = defineStore("user", {
         if (user) this.user = user;
       }
       catch (error) {
-        this.errors = error;
+        this.errors = error.message;
       }
     },
 
@@ -61,7 +61,7 @@ export const useUserStore = defineStore("user", {
         this.user = null;
         this.errors = null;
       } catch (error) {
-        this.errors = error;
+        this.errors = error.message;
       }
     },
   },
