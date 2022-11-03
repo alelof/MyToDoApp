@@ -27,7 +27,7 @@ This project is a To-do app created with **Vue.js** that allows users to create 
 
 
 ## Live demo
-### [Try the live demo](https://silly-duckanoo-ed3c16.netlify.app/)
+### [Try the live demo](https://dontforget-laleche.netlify.app/)
 
 ## Recommended IDE Setup
 
